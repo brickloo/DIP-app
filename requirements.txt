@@ -1,0 +1,8 @@
+fastai==1.0.61
+numpy
+pandas
+torch
+torchvision
+opencv-python-headless
+pillow
+streamlit
