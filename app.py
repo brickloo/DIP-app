@@ -4,6 +4,7 @@ import urllib.request
 from fastai.vision import *
 from PIL import Image
 
+
 @st.cache_data
 def traditional_transform(img: Image):
     # 0.参数设置
@@ -59,6 +60,7 @@ def add_margin(pil_img, top, right, bottom, left, color):
     result.paste(pil_img, (left, top))
     return result
 
+
 @st.cache_data
 def nn_transform(img: Image):
     im_temp = add_margin(img, 250, 250, 250, 250, (255, 255, 255))
@@ -67,9 +69,11 @@ def nn_transform(img: Image):
     p, img_nn, b = learn.predict(image)
     return Image.fromarray(torch.clamp(img_nn.data * 255, 0, 255).byte().permute(1, 2, 0).numpy())
 
+
 st.set_page_config(page_title="素描风格图像生成工具")
 
 st.title("素描风格图像生成工具")
+st.write("Made by brick and denny, grade 21, school of CSE, SCUT.")
 
 with st.spinner("正在加载中，请稍等……"):
     MODEL_NAME = "ArtLine_920.pkl"
@@ -137,4 +141,6 @@ if print_no_image_error:
     st.error("不要着急，你需要先上传一张图片！")
 if print_nn_info:
     st.info("神经网络生成图像的不确定性可能会导致图像边缘有额外的白色区域。如有需要，可下载图像后自行截去。", icon="ℹ️")
-    st.info("由于 streamlit 的机制，点击任意保存按钮后页面会刷新。针对这种情况我们进行了生成结果缓存处理，你只需再次点击生成按钮即可快速看到之前已经计算生成的结果。", icon="ℹ️")
+    st.info(
+        "由于 streamlit 的机制，点击任意保存按钮后页面会刷新。针对这种情况我们进行了生成结果缓存处理，你只需再次点击生成按钮即可快速看到之前已经计算生成的结果。",
+        icon="ℹ️")
