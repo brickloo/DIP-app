@@ -5,7 +5,7 @@ from fastai.vision import *
 from PIL import Image
 
 
-@st.cache_data
+@st.cache_data(max_entries=1)
 def traditional_transform(img: Image):
     # 0.参数设置
     ksize = 15
@@ -61,7 +61,7 @@ def add_margin(pil_img, top, right, bottom, left, color):
     return result
 
 
-@st.cache_data
+@st.cache_data(max_entries=1)
 def nn_transform(img: Image):
     im_temp = add_margin(img, 250, 250, 250, 250, (255, 255, 255))
     im_temp.save("temp.jpg", quality=95)
