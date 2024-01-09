@@ -1,8 +1,19 @@
 import streamlit as st
 import cv2
 import urllib.request
+from fastai.callbacks import hook_outputs
 from fastai.vision import *
+from torch import nn
 from PIL import Image
+
+base_loss = F.l1_loss
+
+
+@st.cache_data
+def gram_matrix(x):
+    n, c, h, w = x.size()
+    x = x.view(n, c, -1)
+    return (x @ x.transpose(1, 2)) / (c * h * w)
 
 
 @st.cache_data
