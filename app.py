@@ -99,7 +99,7 @@ def get_model():
     # MODEL_URL = "https://www.dropbox.com/s/starqc9qd2e1lg1/ArtLine_650.pkl?dl=1"
     if not os.path.exists(MODEL_NAME):
         urllib.request.urlretrieve(MODEL_URL, MODEL_NAME)
-    return load_learner(Path("."), MODEL_NAME)
+    return load_learner(Path(".") / MODEL_NAME)
 
 
 @st.cache_resource
