@@ -4,6 +4,7 @@ import urllib.request
 from fastai.test_utils import *
 from fastai.vision import *
 from torch import nn
+import torch.nn.functional as F
 from PIL import Image
 
 base_loss = F.l1_loss
