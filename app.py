@@ -1,7 +1,7 @@
 import streamlit as st
 import cv2
 import urllib.request
-from fastai.callbacks import hook_outputs
+from fastai.test_utils import *
 from fastai.vision import *
 from torch import nn
 from PIL import Image
