@@ -63,15 +63,10 @@ def add_margin(pil_img, top, right, bottom, left, color):
 
 # @st.cache_data(max_entries=1)
 def nn_transform(img: Image):
-    st.write("executing line 1")
     im_temp = add_margin(img, 250, 250, 250, 250, (255, 255, 255))
-    st.write("executing line 2")
     im_temp.save("temp.jpg", quality=95)
-    st.write("executing line 3")
     image = open_image("temp.jpg")
-    st.write("executing line 4")
     p, img_nn, b = learn.predict(image)
-    st.write("executing line 5")
     return Image.fromarray(torch.clamp(img_nn.data * 255, 0, 255).byte().permute(1, 2, 0).numpy())
 
 
