@@ -1,23 +1,8 @@
 import streamlit as st
-import os
-from pathlib import Path
 import cv2
 import urllib.request
-from fastai.test_utils import *
-from fastai.learner import load_learner
 from fastai.vision import *
-from torch import nn
-import torch.nn.functional as F
 from PIL import Image
-
-base_loss = F.l1_loss
-
-
-@st.cache_data
-def gram_matrix(x):
-    n, c, h, w = x.size()
-    x = x.view(n, c, -1)
-    return (x @ x.transpose(1, 2)) / (c * h * w)
 
 
 @st.cache_data
@@ -99,7 +84,7 @@ def get_model():
     # MODEL_URL = "https://www.dropbox.com/s/starqc9qd2e1lg1/ArtLine_650.pkl?dl=1"
     if not os.path.exists(MODEL_NAME):
         urllib.request.urlretrieve(MODEL_URL, MODEL_NAME)
-    return load_learner(Path(".") / MODEL_NAME)
+    return load_learner(Path("."), MODEL_NAME)
 
 
 @st.cache_resource
