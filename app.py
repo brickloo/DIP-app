@@ -63,10 +63,15 @@ def add_margin(pil_img, top, right, bottom, left, color):
 
 # @st.cache_data(max_entries=1)
 def nn_transform(img: Image):
+    st.write("executing line 1")
     im_temp = add_margin(img, 250, 250, 250, 250, (255, 255, 255))
+    st.write("executing line 2")
     im_temp.save("temp.jpg", quality=95)
+    st.write("executing line 3")
     image = open_image("temp.jpg")
+    st.write("executing line 4")
     p, img_nn, b = learn.predict(image)
+    st.write("executing line 5")
     return Image.fromarray(torch.clamp(img_nn.data * 255, 0, 255).byte().permute(1, 2, 0).numpy())
 
 
@@ -76,10 +81,10 @@ st.title("素描风格图像生成工具")
 st.write("Made by brick and denny, grade 21, school of CSE, SCUT.")
 
 with st.spinner("正在加载中，请稍等……"):
-    # MODEL_NAME = "ArtLine_920.pkl"
-    MODEL_NAME = "ArtLine_650.pkl"
-    # MODEL_URL = "https://www.dropbox.com/s/04suaimdpru76h3/ArtLine_920.pkl?dl=1"
-    MODEL_URL = "https://www.dropbox.com/s/starqc9qd2e1lg1/ArtLine_650.pkl?dl=1"
+    MODEL_NAME = "ArtLine_920.pkl"
+    # MODEL_NAME = "ArtLine_650.pkl"
+    MODEL_URL = "https://www.dropbox.com/s/04suaimdpru76h3/ArtLine_920.pkl?dl=1"
+    # MODEL_URL = "https://www.dropbox.com/s/starqc9qd2e1lg1/ArtLine_650.pkl?dl=1"
     if not os.path.exists(MODEL_NAME):
         urllib.request.urlretrieve(MODEL_URL, MODEL_NAME)
     learn = load_learner(Path("."), MODEL_NAME)
